@@ -13,27 +13,25 @@ const calc = () => {
 	const countSum = () => {
 		const calcType = document.querySelectorAll('.form-control'),
 			distance = document.getElementById('distance');
-		const typeValue1 = parseFloat(calcType[0].options[calcType[0].selectedIndex].value),
-			typeValue2 = parseFloat(calcType[1].options[calcType[1].selectedIndex].value),
-			typeValue3 = parseFloat(calcType[2].options[calcType[2].selectedIndex].value),
-			typeValue4 = parseFloat(calcType[3].options[calcType[3].selectedIndex].value);
+		const typeValues = [];
+		for (let i = 0; i < 4; i++) typeValues.push(parseFloat(calcType[i].options[calcType[i].selectedIndex].value));
 
 		const checkBox1Checked = () => {
-			if (typeValue1 === 2) {
+			if (typeValues[0] === 2) {
 				data.total *= 1.2;
 			}
-			data.diameter1 = typeValue1;
+			data.diameter1 = typeValues[0];
 
 
 			switch (true) {
-			case (typeValue2 === 2):
+			case (typeValues[1] === 2):
 				data.total *= 1.3;
 				break;
-			case (typeValue2 === 3):
+			case (typeValues[1] === 3):
 				data.total *= 1.5;
 				break;
 			}
-			data.numberRings1 = typeValue2;
+			data.numberRings1 = typeValues[1];
 		};
 
 		if (checkBoxes[0].checked) {
@@ -59,20 +57,20 @@ const calc = () => {
 
 			checkBox1Checked();
 
-			if (typeValue3 === 2) {
+			if (typeValues[2] === 2) {
 				data.total *= 1.2;
 			}
-			data.diameter2 = typeValue3;
+			data.diameter2 = typeValues[2];
 
 			switch (true) {
-			case (typeValue4 === 2):
+			case (typeValues[3] === 2):
 				data.total *= 1.3;
 				break;
-			case (typeValue4 === 3):
+			case (typeValues[3] === 3):
 				data.total *= 1.5;
 				break;
 			}
-			data.numberRings2 = typeValue4;
+			data.numberRings2 = typeValues[3];
 
 			if (checkBoxes[1].checked) {
 				data.total += 2000;
