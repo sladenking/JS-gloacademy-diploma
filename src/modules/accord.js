@@ -6,9 +6,9 @@ const accord = () => {
 	const toggleSlides = index => {
 		for (let i = 0; i < slidesBody.length; i++) {
 			if (index === i) {
-				slidesBody[i].style.display = 'block';
+				slidesBody[i].classList.add('in');
 			} else {
-				slidesBody[i].style.display = 'none';
+				slidesBody[i].classList.remove('in');
 			}
 		}
 	};
