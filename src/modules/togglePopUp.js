@@ -9,14 +9,14 @@ const togglePopUp = () => {
 		event.preventDefault();
 		const target = event.target;
 
-		if (target.classList.contains('call-btn')) {
+		if (target.classList.contains('call-btn') && !target.classList.contains('construct-btn')) {
 			popupCall.style.display = 'block';
 			popupContent.style.top = '20%';
 		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-call')) {
 			popupCall.style.display = 'none';
 		}
 
-		if (target.classList.contains('discount-btn')) {
+		if (target.classList.contains('discount-btn') || target.classList.contains('discount-btn')) {
 			popupDiscount.style.display = 'block';
 			popupContent.style.top = '20%';
 		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-discount')) {
