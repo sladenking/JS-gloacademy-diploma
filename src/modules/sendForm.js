@@ -1,11 +1,13 @@
+import { data } from './calc';
+
 const sendForm = () => {
 	const errorMessage = 'Что-то пошло не так...',
 		loadMessage = 'Загрузка...',
 		successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
-	const forms = document.querySelectorAll('.send-form'),
-		bodyHtml = document.querySelector('body');
-
+	const forms = document.querySelectorAll('form'),
+		bodyHtml = document.querySelector('body'),
+		inputConsult = document.querySelector('input[name="user_quest"]');
 	const loader = () => `
 		<style>
 		.preloader__container {
@@ -76,50 +78,59 @@ const sendForm = () => {
 				target.value = target.value.replace(/[^+\d]/g, '');
 			}
 
-			if (target.name === 'user_name' || target.name === 'user_message') {
+			if (target.name === 'user_name') {
 				target.value = target.value.replace(/[^а-я ]/gi, '');
 			}
 		});
 
 		form.addEventListener('submit', event => {
 			event.preventDefault();
-			form.insertAdjacentElement('beforeend', statusMessage);
-			statusMessage.textContent = loadMessage;
 
-			bodyHtml.insertAdjacentHTML('beforeend', loader());
-			const loaderHtml = document.querySelector('.preloader');
+			if (!form.classList.contains('director-form')) {
+				form.insertAdjacentElement('beforeend', statusMessage);
+				statusMessage.textContent = loadMessage;
 
-			const formData = new FormData(form);
-			const body = {};
-			for (const val of formData.entries()) {
-				body[val[0]] = val[1];
-			}
+				bodyHtml.insertAdjacentHTML('beforeend', loader());
+				const loaderHtml = document.querySelector('.preloader');
 
-			const outputData = response => {
-				console.log(response);
-				if (response.status !== 200) {
-					throw new Error('status network not 200');
+				const formData = new FormData(form);
+				const body = {};
+				let dataOutput = {};
+				for (const val of formData.entries()) {
+					body[val[0]] = val[1];
 				}
-				removeStatusMessage();
-				statusMessage.textContent = successMessage;
-				form.reset();
-				loaderHtml.remove();
-			};
+				if (form.classList.contains('consultation-form')) {
+					body.quest = inputConsult.value;
+				} else if (form.classList.contains('discount-form')) {
+					dataOutput = Object.assign(body, data);
+				}
 
-			const error = error => {
-				removeStatusMessage();
-				statusMessage.textContent = errorMessage;
-				console.error(error);
-				loaderHtml.remove();
-			};
+				const outputData = response => {
+					if (response.status !== 200) {
+						throw new Error('status network not 200');
+					}
+					removeStatusMessage();
+					statusMessage.textContent = successMessage;
+					form.reset();
+					loaderHtml.remove();
+				};
 
-			postData(body)
-				.then(outputData)
-				.catch(error);
+				const error = error => {
+					removeStatusMessage();
+					statusMessage.textContent = errorMessage;
+					console.error(error);
+					loaderHtml.remove();
+				};
 
+				postData(dataOutput)
+					.then(outputData)
+					.catch(error);
+
+
+				console.log(dataOutput);
+			}
 		});
 	});
-
 };
 
 export default sendForm;

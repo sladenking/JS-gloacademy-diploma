@@ -146,4 +146,7 @@ const calc = () => {
 
 };
 
-export default calc;
+export {
+	calc, data
+};
+
