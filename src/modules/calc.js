@@ -1,3 +1,5 @@
+const data = {};
+
 const calc = () => {
 	const calcBlock = document.getElementById('accordion'),
 		checkBoxDiv = document.querySelectorAll('.onoffswitch'),
@@ -8,7 +10,6 @@ const calc = () => {
 		selectBox = document.querySelectorAll('.select-box'),
 		calcResult = document.getElementById('calc-result');
 
-	const data = {};
 
 	const countSum = () => {
 		const calcType = document.querySelectorAll('.form-control'),

@@ -6,7 +6,6 @@ const togglePopUp = () => {
 		popupContent = document.querySelector('.popup-content');
 
 	document.body.addEventListener('click', event => {
-		event.preventDefault();
 		const target = event.target;
 
 		if (target.classList.contains('call-btn') && !target.classList.contains('construct-btn')) {
