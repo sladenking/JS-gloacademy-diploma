@@ -94,15 +94,14 @@ const sendForm = () => {
 				const loaderHtml = document.querySelector('.preloader');
 
 				const formData = new FormData(form);
-				const body = {};
-				let dataOutput = {};
+				let body = {};
 				for (const val of formData.entries()) {
 					body[val[0]] = val[1];
 				}
 				if (form.classList.contains('consultation-form')) {
 					body.quest = inputConsult.value;
 				} else if (form.classList.contains('discount-form')) {
-					dataOutput = Object.assign(body, data);
+					body = Object.assign(body, data);
 				}
 
 				const outputData = response => {
@@ -122,12 +121,12 @@ const sendForm = () => {
 					loaderHtml.remove();
 				};
 
-				postData(dataOutput)
+				postData(body)
 					.then(outputData)
 					.catch(error);
 
 
-				console.log(dataOutput);
+				console.log(body);
 			}
 		});
 	});
