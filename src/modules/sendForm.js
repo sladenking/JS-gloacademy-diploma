@@ -7,7 +7,8 @@ const sendForm = () => {
 
 	const forms = document.querySelectorAll('form'),
 		bodyHtml = document.querySelector('body'),
-		inputConsult = document.querySelector('input[name="user_quest"]');
+		inputConsult = document.querySelector('input[name="user_quest"]'),
+		btns = document.querySelectorAll('button[name="submit"]');
 	const loader = () => `
 		<style>
 		.preloader__container {
@@ -77,10 +78,16 @@ const sendForm = () => {
 			if (target.name === 'user_phone') {
 				target.value = target.value.replace(/[^+\d]/g, '');
 			}
-
 			if (target.name === 'user_name') {
 				target.value = target.value.replace(/[^а-я ]/gi, '');
 			}
+			btns.forEach(elem => {
+				if (target.name === 'user_phone' && target.value.length < 10) {
+					elem.setAttribute("disabled", "true");
+				} else {
+					elem.removeAttribute('disabled');
+				}
+			});
 		});
 
 		form.addEventListener('submit', event => {
@@ -125,9 +132,6 @@ const sendForm = () => {
 				postData(body)
 					.then(outputData)
 					.catch(error);
-
-
-				console.log(body);
 			}
 		});
 	});
