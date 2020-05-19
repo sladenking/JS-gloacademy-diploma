@@ -84,8 +84,10 @@ const sendForm = () => {
 			btns.forEach(elem => {
 				if (target.name === 'user_phone' && target.value.length < 10) {
 					elem.setAttribute("disabled", "true");
+					target.style.cssText = 'border: 2px solid red';
 				} else {
 					elem.removeAttribute('disabled');
+					target.style.cssText = 'border: none';
 				}
 			});
 		});
