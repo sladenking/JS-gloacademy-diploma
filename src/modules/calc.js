@@ -8,14 +8,21 @@ const calc = () => {
 		panelsHead = document.querySelectorAll('.panel-heading'),
 		titleText = document.querySelectorAll('.title-text')[1],
 		selectBox = document.querySelectorAll('.select-box'),
-		calcResult = document.getElementById('calc-result');
+		calcResult = document.getElementById('calc-result'),
+		distance = document.getElementById('distance');
 
 
 	const countSum = () => {
-		const calcType = document.querySelectorAll('.form-control'),
-			distance = document.getElementById('distance');
+		const calcType = document.querySelectorAll('.form-control');
 		const typeValues = [];
 		for (let i = 0; i < 4; i++) typeValues.push(parseFloat(calcType[i].options[calcType[i].selectedIndex].value));
+
+		calcBlock.addEventListener('input', event => {
+			const target = event.target;
+			if (target.id === 'distance') {
+				target.value = target.value.replace(/[^+\d]/g, '');
+			}
+		});
 
 		const checkBox1Checked = () => {
 			if (typeValues[0] === 2) {
@@ -78,8 +85,6 @@ const calc = () => {
 				data.bottom = 'yes, 2000';
 			}
 		}
-
-		data.distance = +distance.value;
 		calcResult.placeholder = `Примерная стоимость: ${data.total} руб.`;
 	};
 
@@ -108,6 +113,10 @@ const calc = () => {
 		event.preventDefault();
 		let target = event.target;
 
+		if (target.classList.contains('onoffswitch-inner')) {
+			countSum();
+		}
+
 		if (target.classList.contains('construct-btn')  && !target.classList.contains('discount-btn')) {
 			countSum();
 			switch (true) {
@@ -124,6 +133,8 @@ const calc = () => {
 				panels[3].classList.add('in');
 				break;
 			}
+		} else {
+			data.distance = +distance.value;
 		}
 
 		target = target.closest('.panel-heading');
@@ -139,7 +150,8 @@ const calc = () => {
 	calcBlock.addEventListener('change', event => {
 		const target = event.target;
 
-		if (target.matches('select')) {
+		if (target.matches('select') || target.closest('.onoffswitch-checkbox')) {
+			console.log(target);
 			countSum();
 		}
 	});

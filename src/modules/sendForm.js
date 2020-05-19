@@ -100,6 +100,7 @@ const sendForm = () => {
 				}
 				if (form.classList.contains('consultation-form')) {
 					body.quest = inputConsult.value;
+					inputConsult.value = '';
 				} else if (form.classList.contains('discount-form')) {
 					body = Object.assign(body, data);
 				}

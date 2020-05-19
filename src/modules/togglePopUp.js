@@ -11,28 +11,28 @@ const togglePopUp = () => {
 		if (target.classList.contains('call-btn') && !target.classList.contains('construct-btn')) {
 			popupCall.style.display = 'block';
 			popupContent.style.top = '20%';
-		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-call')) {
+		} else if (target.closest('.popup-close') || target.classList.contains('popup-call')) {
 			popupCall.style.display = 'none';
 		}
 
-		if (target.classList.contains('discount-btn') || target.classList.contains('discount-btn')) {
+		if (target.classList.contains('discount-btn')) {
 			popupDiscount.style.display = 'block';
 			popupContent.style.top = '20%';
-		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-discount')) {
+		} else if (target.closest('.popup-close') || target.classList.contains('popup-discount')) {
 			popupDiscount.style.display = 'none';
 		}
 
 		if (target.classList.contains('check-btn')) {
 			popupCheck.style.display = 'block';
 			popupContent.style.top = '20%';
-		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-check')) {
+		} else if (target.closest('.popup-close') || target.classList.contains('popup-check')) {
 			popupCheck.style.display = 'none';
 		}
 
 		if (target.classList.contains('director-btn')) {
 			popupDirector.style.display = 'block';
 			popupContent.style.top = '20%';
-		} else if (target.classList.contains('popup-close') || target.classList.contains('popup-consultation')) {
+		} else if (target.closest('.popup-close') || target.classList.contains('popup-consultation')) {
 			popupDirector.style.display = 'none';
 		}
 
